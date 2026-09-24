@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Cloud Computing Workshop",
+    "description": "Hands-on workshop covering IaaS, PaaS, SaaS, real-time databases, and serverless patterns.",
+    "event_type": "workshop",
+    "event_date": "2099-12-01",
+    "start_time": "10:00",
+    "end_time": "13:00",
+    "venue": "Main Auditorium",
+    "online_link": "",
+    "max_capacity": 100,
+    "registration_deadline": "2099-11-30",
+    "status": "PUBLISHED"
+  },
+  {
+    "name": "TechFest 2099 Keynote",
+    "description": "Annual college tech festival keynote on scalable cloud architecture.",
+    "event_type": "fest",
+    "event_date": "2099-12-15",
+    "start_time": "09:00",
+    "end_time": "11:00",
+    "venue": "Open Air Theatre",
+    "online_link": "",
+    "max_capacity": 500,
+    "registration_deadline": "2099-12-14",
+    "status": "PUBLISHED"
+  },
+  {
+    "name": "Kubernetes Deep Dive Webinar",
+    "description": "Online webinar on pods, services, deployments, and autoscaling.",
+    "event_type": "webinar",
+    "event_date": "2099-11-20",
+    "start_time": "18:00",
+    "end_time": "19:30",
+    "venue": "",
+    "online_link": "https://meet.example.com/k8s-deep-dive",
+    "max_capacity": 250,
+    "registration_deadline": "2099-11-19",
+    "status": "PUBLISHED"
+  }
+]
