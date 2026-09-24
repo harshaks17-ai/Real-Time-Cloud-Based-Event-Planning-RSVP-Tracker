@@ -24,3 +24,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+
+# CI workflow needs PAT with 'workflow' scope before committing
+.github/
