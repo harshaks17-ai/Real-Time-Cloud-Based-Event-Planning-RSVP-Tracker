@@ -12,7 +12,7 @@ export default function Notifications() {
   useEffect(() => {
     if (!user) return;
     load();
-    const t = setInterval(load, 15000);
+    const t = setInterval(load, 12000);
     return () => clearInterval(t);
   }, [user]);
 
@@ -21,13 +21,14 @@ export default function Notifications() {
 
   return (
     <div style={{ position: "relative" }}>
-      <button className="btn ghost sm" onClick={() => setOpen(!open)}>
-        Bell{unread ? ` (${unread})` : ""}
+      <button className="btn ghost sm bell-btn" onClick={() => setOpen(!open)} aria-label="Notifications">
+        🔔
+        {unread > 0 && <span className="bell-count">{unread}</span>}
       </button>
       {open && (
         <div className="notif-panel">
-          <strong style={{ fontSize: 13 }}>Notifications</strong>
-          {items.length === 0 && <div className="muted" style={{ marginTop: 8 }}>No notifications yet.</div>}
+          <strong style={{ fontSize: 13, display: "block", marginBottom: 8 }}>Notifications</strong>
+          {items.length === 0 && <div className="muted">You're all caught up 🎉</div>}
           {items.map((n) => (
             <div
               key={n.id}
@@ -35,7 +36,9 @@ export default function Notifications() {
               onClick={async () => { if (!n.is_read) { await api.markRead(n.id); load(); } }}
             >
               <div>{n.message}</div>
-              <div className="muted">{new Date(n.created_at).toLocaleString()}</div>
+              <div className="muted" style={{ marginTop: 3, fontSize: 11 }}>
+                {new Date(n.created_at).toLocaleString()}
+              </div>
             </div>
           ))}
         </div>

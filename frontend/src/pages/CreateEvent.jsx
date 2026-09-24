@@ -38,14 +38,18 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 640 }}>
-      <div className="card">
-        <h2 style={{ marginTop: 0 }}>Create event</h2>
+    <div className="container" style={{ maxWidth: 680 }}>
+      <div className="hero-kicker" style={{ marginBottom: 10 }}>New event</div>
+      <h2 className="page-title" style={{ marginBottom: 18 }}>Create event</h2>
+
+      <div className="auth-card" style={{ padding: 28 }}>
         <form onSubmit={submit}>
           <label>Event name</label>
           <input value={form.name} onChange={set("name")} required placeholder="Cloud Computing Workshop" />
+
           <label>Description</label>
-          <textarea rows={3} value={form.description} onChange={set("description")} />
+          <textarea rows={3} value={form.description} onChange={set("description")} placeholder="What will attendees learn / experience?" />
+
           <div className="grid cols-2">
             <div>
               <label>Type</label>
@@ -79,19 +83,26 @@ export default function CreateEvent() {
               <input type="time" value={form.end_time} onChange={set("end_time")} required />
             </div>
           </div>
+
           <label>Venue</label>
           <input value={form.venue} onChange={set("venue")} placeholder="Hall A / Main Auditorium" />
+
           <label>Online link (optional)</label>
           <input value={form.online_link} onChange={set("online_link")} placeholder="https://meet.example.com/xyz" />
+
           <label>Status</label>
           <select value={form.status} onChange={set("status")}>
-            <option value="DRAFT">Draft</option>
-            <option value="PUBLISHED">Published</option>
+            <option value="DRAFT">Draft (hidden)</option>
+            <option value="PUBLISHED">Published (open for RSVPs)</option>
           </select>
+
           {error && <div className="error">{error}</div>}
-          <div style={{ display: "flex", gap: 8 }}>
-            <button className="btn" disabled={busy}>{busy ? "Saving…" : "Create event"}</button>
-            <button type="button" className="btn ghost" onClick={() => nav(-1)}>Cancel</button>
+
+          <div className="btn-row" style={{ marginTop: 6 }}>
+            <button className="btn lg" disabled={busy}>
+              {busy ? "Saving…" : "Create event →"}
+            </button>
+            <button type="button" className="btn ghost lg" onClick={() => nav(-1)}>Cancel</button>
           </div>
         </form>
       </div>

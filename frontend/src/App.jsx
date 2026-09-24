@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import Navbar from "./components/Navbar";
+import BgScene from "./components/BgScene";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Discover from "./pages/Discover";
@@ -12,7 +13,14 @@ import CreateEvent from "./pages/CreateEvent";
 
 function Protected({ children, role }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="container muted">Loading…</div>;
+  if (loading)
+    return (
+      <div className="container">
+        <div className="skeleton" style={{ width: "40%", height: 32 }} />
+        <div className="skeleton" style={{ width: "70%" }} />
+        <div className="skeleton" style={{ width: "55%" }} />
+      </div>
+    );
   if (!user) return <Navigate to="/login" replace />;
   if (role && user.role !== role) return <Navigate to="/" replace />;
   return children;
@@ -21,6 +29,7 @@ function Protected({ children, role }) {
 export default function App() {
   return (
     <>
+      <BgScene />
       <Navbar />
       <Routes>
         <Route path="/login" element={<Login />} />

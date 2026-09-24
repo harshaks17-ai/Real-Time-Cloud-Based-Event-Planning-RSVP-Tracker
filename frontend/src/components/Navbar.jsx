@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { api } from "../services/api";
 import Notifications from "./Notifications";
 
 export default function Navbar() {
@@ -10,7 +8,10 @@ export default function Navbar() {
 
   return (
     <nav className="nav">
-      <Link to="/" className="brand">RSVP Tracker</Link>
+      <Link to="/" className="brand">
+        <span className="brand-mark">⚡</span>
+        RSVP Cloud
+      </Link>
       {user && (
         <>
           <NavLink to="/" end>Discover</NavLink>
@@ -22,18 +23,17 @@ export default function Navbar() {
       {user ? (
         <>
           <Notifications />
-          <span className="muted">{user.name} · {user.role}</span>
-          <button
-            className="btn ghost sm"
-            onClick={() => { logout(); nav("/login"); }}
-          >
+          <span className="nav-user">
+            {user.name} · <strong style={{ color: "#fff" }}>{user.role}</strong>
+          </span>
+          <button className="btn ghost sm" onClick={() => { logout(); nav("/login"); }}>
             Logout
           </button>
         </>
       ) : (
         <>
           <NavLink to="/login">Login</NavLink>
-          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/register" style={{ color: "#fff" }}>Get Started</NavLink>
         </>
       )}
     </nav>

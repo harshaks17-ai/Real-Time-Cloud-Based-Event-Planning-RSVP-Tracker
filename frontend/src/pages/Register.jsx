@@ -25,29 +25,53 @@ export default function Register() {
   };
 
   return (
-    <div className="container" style={{ maxWidth: 420 }}>
-      <div className="card">
-        <h2 style={{ marginTop: 0 }}>Create account</h2>
+    <div className="auth-wrap">
+      <div className="auth-card">
+        <div className="hero-kicker" style={{ marginBottom: 14 }}>✦ Join the platform</div>
+        <h2>Create your <span className="grad-text">account</span></h2>
+        <p className="muted" style={{ marginBottom: 22 }}>
+          Free forever for students · takes less than a minute.
+        </p>
         <form onSubmit={submit}>
           <label>Full name</label>
-          <input value={form.name} onChange={set("name")} required />
+          <input value={form.name} onChange={set("name")} placeholder="Ada Lovelace" required />
           <label>Email</label>
-          <input type="email" value={form.email} onChange={set("email")} required />
-          <label>Password (min 6 chars)</label>
-          <input type="password" value={form.password} onChange={set("password")} minLength={6} required />
-          <label>Role</label>
+          <input type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
+          <label>Password</label>
+          <input
+            type="password"
+            value={form.password}
+            onChange={set("password")}
+            minLength={6}
+            placeholder="Min 6 characters"
+            required
+          />
+          <label>I want to…</label>
           <select value={form.role} onChange={set("role")}>
-            <option value="attendee">Attendee</option>
-            <option value="organizer">Organizer</option>
+            <option value="attendee">Attend events (Attendee)</option>
+            <option value="organizer">Host events (Organizer)</option>
           </select>
           {error && <div className="error">{error}</div>}
-          <button className="btn" disabled={busy} style={{ width: "100%" }}>
-            {busy ? "Creating…" : "Register"}
+          <button className="btn lg block" disabled={busy}>
+            {busy ? "Creating account…" : "Create account →"}
           </button>
         </form>
-        <p className="muted">
-          Already registered? <Link to="/login">Login</Link>
+        <p className="muted" style={{ marginTop: 18 }}>
+          Already registered? <Link to="/login">Sign in</Link>
         </p>
+      </div>
+
+      <div className="auth-aside">
+        <div className="hero-kicker">Why organizers love it</div>
+        <h3>
+          From invite to <span className="grad-text">check-in</span>, one cloud flow.
+        </h3>
+        <ul>
+          <li><span className="tick">✓</span> Publish events with capacity & deadlines</li>
+          <li><span className="tick">✓</span> Live Going / Maybe / Not Going analytics</li>
+          <li><span className="tick">✓</span> Announcements push to every attendee bell</li>
+          <li><span className="tick">✓</span> Race-safe seat claiming under load</li>
+        </ul>
       </div>
     </div>
   );

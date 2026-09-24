@@ -17,7 +17,12 @@ export function useEventSocket(eventId, initial = null) {
 
     const connect = () => {
       const proto = location.protocol === "https:" ? "wss" : "ws";
-      ws = new WebSocket(`${proto}://${location.host}/ws/events/${eventId}`);
+      try {
+        ws = new WebSocket(`${proto}://${location.host}/ws/events/${eventId}`);
+      } catch {
+        scheduleRetry();
+        return;
+      }
       ws.onopen = () => {
         retries.current = 0;
         setConnected(true);
@@ -30,13 +35,18 @@ export function useEventSocket(eventId, initial = null) {
       };
       ws.onclose = () => {
         setConnected(false);
-        if (!closed && retries.current < 10) {
-          const delay = Math.min(500 * 2 ** retries.current, 8000);
-          retries.current += 1;
-          timer = setTimeout(connect, delay);
-        }
+        scheduleRetry();
       };
-      ws.onerror = () => ws.close();
+      ws.onerror = () => {
+        try { ws.close(); } catch {}
+      };
+    };
+
+    const scheduleRetry = () => {
+      if (closed || retries.current >= 20) return;
+      const delay = Math.min(400 * 2 ** retries.current, 8000);
+      retries.current += 1;
+      timer = setTimeout(connect, delay);
     };
 
     connect();
